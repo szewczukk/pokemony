@@ -27,6 +27,7 @@ export default function PokemonModalScreen({ route }: Props) {
 		} catch (e) {
 			console.error(e);
 		}
+		navigation.goBack();
 	};
 
 	if (isLoading || !data) {
