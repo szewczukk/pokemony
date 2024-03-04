@@ -1,3 +1,4 @@
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -14,3 +15,7 @@ export type TabNavigationParamList = {
 	PokemonList: undefined;
 	Favorite: undefined;
 };
+
+export function useTabNavigation() {
+	return useNavigation<BottomTabNavigationProp<TabNavigationParamList>>();
+}
