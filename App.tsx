@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import PokemonListScreen from './components/PokemonListScreen';
+import PokemonListScreen from './src/screens/PokemonListScreen';
 
 const queryClient = new QueryClient();
 

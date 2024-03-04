@@ -8,8 +8,8 @@ import {
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
-import { getPokemons } from '../api/get-pokemons';
-import PokemonCard from './PokemonCard';
+import { getPokemons } from '@/api/get-pokemons';
+import PokemonCard from '@/components/PokemonCard';
 
 export default function PokemonListScreen() {
 	const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({

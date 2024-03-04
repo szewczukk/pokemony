@@ -1,6 +1,13 @@
-import { Text, ActivityIndicator, Image, Pressable, StyleSheet, View } from 'react-native';
+import {
+	Text,
+	ActivityIndicator,
+	Image,
+	Pressable,
+	StyleSheet,
+	View,
+} from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { getPokemon } from '../api/get-pokemon';
+import { getPokemon } from '@/api/get-pokemon';
 
 type Props = {
 	name: string;
