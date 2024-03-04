@@ -2,9 +2,9 @@ import {
 	Text,
 	ActivityIndicator,
 	Image,
-	Pressable,
 	StyleSheet,
 	View,
+	TouchableHighlight,
 } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { getPokemon } from '@/api/get-pokemon';
@@ -31,17 +31,18 @@ export default function PokemonCard({ name, url }: Props) {
 	}
 
 	return (
-		<Pressable
-			style={({ pressed }) => [styles.container, pressed && styles.pressed]}
+		<TouchableHighlight
 			onPress={() => navigation.navigate('PokemonModal', { url })}
 		>
-			<Image
-				source={{ uri: query.data?.sprites.front_default }}
-				width={64}
-				height={64}
-			/>
-			<Text>{name}</Text>
-		</Pressable>
+			<View style={styles.container}>
+				<Image
+					source={{ uri: query.data?.sprites.front_default }}
+					width={64}
+					height={64}
+				/>
+				<Text>{name}</Text>
+			</View>
+		</TouchableHighlight>
 	);
 }
 
