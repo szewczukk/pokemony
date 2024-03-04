@@ -1,6 +1,7 @@
 import { getPokemon } from '@/api/get-pokemon';
 import PokemonInfo from '@/components/PokemonInfo';
 import { StackNavigationParamList, useRootStackNavigation } from '@/navigation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useQuery } from '@tanstack/react-query';
 import { StyleSheet, ActivityIndicator, View, Button } from 'react-native';
@@ -20,6 +21,14 @@ export default function PokemonModalScreen({ route }: Props) {
 		navigation.goBack();
 	};
 
+	const handleFavoriteButtonPressed = async () => {
+		try {
+			await AsyncStorage.setItem('favorite', JSON.stringify(data));
+		} catch (e) {
+			console.error(e);
+		}
+	};
+
 	if (isLoading || !data) {
 		return (
 			<View>
@@ -36,6 +45,7 @@ export default function PokemonModalScreen({ route }: Props) {
 				name={data.name}
 				spriteURL={data.sprites.front_default}
 			/>
+			<Button title="Favorite" onPress={handleFavoriteButtonPressed} />
 			<Button title="Close" onPress={handleCloseButtonPressed} />
 		</View>
 	);
