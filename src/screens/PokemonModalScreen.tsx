@@ -1,4 +1,5 @@
 import { getPokemon } from '@/api/get-pokemon';
+import PokemonInfo from '@/components/PokemonInfo';
 import { RootStackParamList, useRootStackNavigation } from '@/navigation';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useQuery } from '@tanstack/react-query';
@@ -26,7 +27,7 @@ export default function PokemonModalScreen({ route }: Props) {
 		navigation.goBack();
 	};
 
-	if (isLoading) {
+	if (isLoading || !data) {
 		return (
 			<View>
 				<ActivityIndicator />
@@ -36,14 +37,12 @@ export default function PokemonModalScreen({ route }: Props) {
 
 	return (
 		<View style={styles.container}>
-			<Image
-				source={{ uri: data?.sprites.front_default }}
-				width={128}
-				height={128}
+			<PokemonInfo
+				weight={data?.weight}
+				height={data.height}
+				name={data.name}
+				spriteURL={data.sprites.front_default}
 			/>
-			<Text style={styles.name}>{data?.name}</Text>
-			<Text>{data!.height / 10}m</Text>
-			<Text>{data!.weight / 10}kg</Text>
 			<Button title="Close" onPress={handleCloseButtonPressed} />
 		</View>
 	);
@@ -54,9 +53,5 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		alignItems: 'center',
 		padding: 8,
-	},
-	name: {
-		fontWeight: 'bold',
-		fontSize: 24,
 	},
 });

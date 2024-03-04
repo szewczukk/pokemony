@@ -5,6 +5,7 @@ import {
 	StyleSheet,
 	View,
 	TouchableHighlight,
+	Button,
 } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { getPokemon } from '@/api/get-pokemon';
@@ -35,12 +36,15 @@ export default function PokemonCard({ name, url }: Props) {
 			onPress={() => navigation.navigate('PokemonModal', { url })}
 		>
 			<View style={styles.container}>
-				<Image
-					source={{ uri: query.data?.sprites.front_default }}
-					width={64}
-					height={64}
-				/>
-				<Text>{name}</Text>
+				<View style={styles.innerContainer}>
+					<Image
+						source={{ uri: query.data?.sprites.front_default }}
+						width={64}
+						height={64}
+					/>
+					<Text>{name}</Text>
+				</View>
+				<Button title="Favorite" />
 			</View>
 		</TouchableHighlight>
 	);
@@ -52,9 +56,11 @@ const styles = StyleSheet.create({
 		backgroundColor: '#f0f0f0',
 		flexDirection: 'row',
 		alignItems: 'center',
+		justifyContent: 'space-between',
 		gap: 8,
 	},
-	pressed: {
-		backgroundColor: '#e0e0e0',
+	innerContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
 	},
 });
