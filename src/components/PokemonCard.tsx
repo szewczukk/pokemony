@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { getPokemon } from '@/api/get-pokemon';
+import { useRootStackNavigation } from '@/navigation';
 
 type Props = {
 	name: string;
@@ -15,6 +16,7 @@ type Props = {
 };
 
 export default function PokemonCard({ name, url }: Props) {
+	const navigation = useRootStackNavigation();
 	const query = useQuery({
 		queryKey: ['pokemon', url],
 		queryFn: () => getPokemon(url),
@@ -29,7 +31,10 @@ export default function PokemonCard({ name, url }: Props) {
 	}
 
 	return (
-		<Pressable style={styles.container}>
+		<Pressable
+			style={styles.container}
+			onPress={() => navigation.navigate('PokemonModal')}
+		>
 			<Image
 				source={{ uri: query.data?.sprites.front_default }}
 				width={64}
