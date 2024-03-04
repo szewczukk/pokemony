@@ -1,14 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-export type RootStackParamList = {
+export type RootNavigationParamList = {
 	PokemonList: undefined;
+	FavoritePokemon: undefined;
 	PokemonModal: { url: string };
 };
 
-export const RootStack = createNativeStackNavigator<RootStackParamList>();
-
 export function useRootStackNavigation() {
-	return useNavigation<StackNavigationProp<RootStackParamList>>();
+	return useNavigation<StackNavigationProp<RootNavigationParamList>>();
 }

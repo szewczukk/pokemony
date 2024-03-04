@@ -1,18 +1,11 @@
 import { getPokemon } from '@/api/get-pokemon';
 import PokemonInfo from '@/components/PokemonInfo';
-import { RootStackParamList, useRootStackNavigation } from '@/navigation';
+import { RootNavigationParamList, useRootStackNavigation } from '@/navigation';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useQuery } from '@tanstack/react-query';
-import {
-	StyleSheet,
-	ActivityIndicator,
-	Text,
-	View,
-	Image,
-	Button,
-} from 'react-native';
+import { StyleSheet, ActivityIndicator, View, Button } from 'react-native';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'PokemonModal'>;
+type Props = NativeStackScreenProps<RootNavigationParamList, 'PokemonModal'>;
 
 export default function PokemonModalScreen({ route }: Props) {
 	const { url } = route.params;
