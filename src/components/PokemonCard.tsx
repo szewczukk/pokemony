@@ -18,7 +18,7 @@ type Props = {
 export default function PokemonCard({ name, url }: Props) {
 	const navigation = useRootStackNavigation();
 	const query = useQuery({
-		queryKey: ['pokemon', url],
+		queryKey: [url],
 		queryFn: () => getPokemon(url),
 	});
 
@@ -33,7 +33,7 @@ export default function PokemonCard({ name, url }: Props) {
 	return (
 		<Pressable
 			style={styles.container}
-			onPress={() => navigation.navigate('PokemonModal')}
+			onPress={() => navigation.navigate('PokemonModal', { url })}
 		>
 			<Image
 				source={{ uri: query.data?.sprites.front_default }}
@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
 	container: {
 		padding: 16,
 		backgroundColor: '#f0f0f0',
-		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
 		gap: 8,

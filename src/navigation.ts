@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 export type RootStackParamList = {
 	PokemonList: undefined;
-	PokemonModal: undefined;
+	PokemonModal: { url: string };
 };
 
 export const RootStack = createNativeStackNavigator<RootStackParamList>();
