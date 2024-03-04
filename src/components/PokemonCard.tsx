@@ -10,6 +10,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { getPokemon } from '@/api/get-pokemon';
 import { useRootStackNavigation } from '@/navigation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Props = {
 	name: string;
@@ -22,6 +23,14 @@ export default function PokemonCard({ name, url }: Props) {
 		queryKey: [url],
 		queryFn: () => getPokemon(url),
 	});
+
+	const handleFavoriteButtonPressed = async () => {
+		try {
+			await AsyncStorage.setItem('favorite', JSON.stringify(query.data));
+		} catch (e) {
+			console.error(e);
+		}
+	};
 
 	if (query.isLoading) {
 		return (
@@ -44,7 +53,7 @@ export default function PokemonCard({ name, url }: Props) {
 					/>
 					<Text>{name}</Text>
 				</View>
-				<Button title="Favorite" />
+				<Button title="Favorite" onPress={handleFavoriteButtonPressed} />
 			</View>
 		</TouchableHighlight>
 	);
