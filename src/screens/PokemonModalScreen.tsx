@@ -2,8 +2,10 @@ import { getPokemon } from '@/api/get-pokemon';
 import PokemonInfo from '@/components/PokemonInfo';
 import { StackNavigationParamList, useRootStackNavigation } from '@/navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { StyleSheet, ActivityIndicator, View, Button } from 'react-native';
 
 type Props = NativeStackScreenProps<StackNavigationParamList, 'PokemonModal'>;
@@ -11,6 +13,7 @@ type Props = NativeStackScreenProps<StackNavigationParamList, 'PokemonModal'>;
 export default function PokemonModalScreen({ route }: Props) {
 	const { url } = route.params;
 
+	const [isFavorite, setIsFavorite] = useState(false);
 	const navigation = useRootStackNavigation();
 	const { isLoading, data } = useQuery({
 		queryKey: [url],
@@ -22,13 +25,32 @@ export default function PokemonModalScreen({ route }: Props) {
 	};
 
 	const handleFavoriteButtonPressed = async () => {
-		try {
-			await AsyncStorage.setItem('favorite', JSON.stringify(data));
-		} catch (e) {
-			console.error(e);
-		}
-		navigation.goBack();
+		AsyncStorage.setItem('favorite', JSON.stringify(data), () => {
+			AsyncStorage.setItem('favorite_url', url, () => {
+				navigation.goBack();
+			});
+		});
 	};
+
+	const handleUnfavorite = async () => {
+		AsyncStorage.removeItem('favorite', () => {
+			AsyncStorage.removeItem('favorite_url', () => {
+				setIsFavorite(false);
+				navigation.goBack();
+			});
+		});
+	};
+
+	useEffect(() => {
+		(async () => {
+			const value = await AsyncStorage.getItem('favorite_url');
+			if (!value) {
+				return;
+			}
+
+			setIsFavorite(value === url);
+		})();
+	}, [url]);
 
 	if (isLoading || !data) {
 		return (
@@ -46,7 +68,11 @@ export default function PokemonModalScreen({ route }: Props) {
 				name={data.name}
 				spriteURL={data.sprites.front_default}
 			/>
-			<Button title="Favorite" onPress={handleFavoriteButtonPressed} />
+			{isFavorite ? (
+				<Button title="Unfavorite" onPress={handleUnfavorite} />
+			) : (
+				<Button title="Favorite" onPress={handleFavoriteButtonPressed} />
+			)}
 			<Button title="Close" onPress={handleCloseButtonPressed} />
 		</View>
 	);

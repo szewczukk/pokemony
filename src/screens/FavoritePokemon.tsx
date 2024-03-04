@@ -11,29 +11,28 @@ export default function FavoritePokemon() {
 	const navigation = useTabNavigation();
 	const [pokemon, setPokemon] = useState<Pokemon | undefined>(undefined);
 
-	const handleUnfavoritePressed = async () => {
-		await AsyncStorage.removeItem('favorite');
-		setPokemon(undefined);
+	const handleUnfavoritePressed = () => {
+		AsyncStorage.removeItem('favorite', () => {
+			setPokemon(undefined);
+			navigation.goBack();
+		});
 	};
 
 	useEffect(() => {
-		if (pokemon === undefined) {
-			navigation.goBack();
-		}
-	}, [pokemon]);
+		const unsubscribe = navigation.addListener('focus', () => {
+			AsyncStorage.getItem('favorite', (err, result) => {
+				if (!result) {
+					setPokemon(undefined);
+					return;
+				}
 
-	useEffect(() => {
-		(async () => {
-			const value = await AsyncStorage.getItem('favorite');
-			if (!value) {
-				return;
-			}
+				const parsed = pokemonSchema.parse(JSON.parse(result));
+				setPokemon(parsed);
+			});
+		});
 
-			const parsed = pokemonSchema.parse(JSON.parse(value));
-
-			setPokemon(parsed);
-		})();
-	}, [isFocused]);
+		return unsubscribe;
+	}, [navigation]);
 
 	if (!pokemon) {
 		return (
