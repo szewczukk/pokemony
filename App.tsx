@@ -16,7 +16,11 @@ export default function App() {
 	return (
 		<NavigationContainer>
 			<QueryClientProvider client={queryClient}>
-				<TabNavigator.Navigator screenOptions={{ headerShown: false }}>
+				<TabNavigator.Navigator
+					screenOptions={{
+						headerShown: false,
+					}}
+				>
 					<TabNavigator.Screen name="PokemonList">
 						{() => (
 							<StackNavigator.Navigator screenOptions={{ headerShown: false }}>
