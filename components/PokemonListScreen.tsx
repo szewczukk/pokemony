@@ -1,4 +1,10 @@
-import {Text, ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import {
+	Text,
+	ActivityIndicator,
+	FlatList,
+	StyleSheet,
+	SafeAreaView,
+} from 'react-native';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
@@ -24,8 +30,8 @@ export default function PokemonListScreen() {
 	const pokemons = data?.pages.flatMap((page) => page.results)!;
 
 	return (
-		<View style={styles.container}>
-      <StatusBar style='auto' />
+		<SafeAreaView style={styles.container}>
+			<StatusBar style="auto" />
 			<FlatList
 				data={pokemons}
 				keyExtractor={(item) => item.url}
@@ -34,7 +40,7 @@ export default function PokemonListScreen() {
 				)}
 				onEndReached={() => fetchNextPage()}
 			/>
-		</View>
+		</SafeAreaView>
 	);
 }
 
