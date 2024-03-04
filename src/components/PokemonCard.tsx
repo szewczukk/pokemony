@@ -32,7 +32,7 @@ export default function PokemonCard({ name, url }: Props) {
 
 	return (
 		<Pressable
-			style={styles.container}
+			style={({ pressed }) => [styles.container, pressed && styles.pressed]}
 			onPress={() => navigation.navigate('PokemonModal', { url })}
 		>
 			<Image
@@ -52,5 +52,8 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		gap: 8,
+	},
+	pressed: {
+		backgroundColor: '#e0e0e0',
 	},
 });
