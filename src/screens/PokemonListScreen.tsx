@@ -1,11 +1,10 @@
 import {
-	Text,
 	ActivityIndicator,
 	FlatList,
 	StyleSheet,
 	SafeAreaView,
 } from 'react-native';
-
+import { Text } from 'react-native-paper';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
 import { getPokemons } from '@/api/get-pokemons';

@@ -5,7 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { StyleSheet, ActivityIndicator, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Button } from 'react-native-paper';
 
 type Props = NativeStackScreenProps<StackNavigationParamList, 'PokemonModal'>;
 
@@ -62,11 +63,11 @@ export default function PokemonModalScreen({ route }: Props) {
 				spriteURL={data.sprites.front_default}
 			/>
 			{isFavorite ? (
-				<Button title="Unfavorite" onPress={handleUnfavorite} />
+				<Button onPress={handleUnfavorite}>Unfavorite</Button>
 			) : (
-				<Button title="Favorite" onPress={handleFavoriteButtonPressed} />
+				<Button onPress={handleFavoriteButtonPressed}>Favorite</Button>
 			)}
-			<Button title="Close" onPress={handleCloseButtonPressed} />
+			<Button onPress={handleCloseButtonPressed}>Close</Button>
 		</View>
 	);
 }

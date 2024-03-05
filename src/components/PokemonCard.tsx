@@ -1,11 +1,11 @@
 import {
-	Text,
 	ActivityIndicator,
 	Image,
 	StyleSheet,
 	View,
 	TouchableHighlight,
 } from 'react-native';
+import { Text } from 'react-native-paper';
 import { useQuery } from '@tanstack/react-query';
 import { getPokemon } from '@/api/get-pokemon';
 import { useRootStackNavigation } from '@/navigation';

@@ -4,7 +4,8 @@ import { useTabNavigation } from '@/navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { Button, SafeAreaView, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import { Button, Text } from 'react-native-paper';
 
 export default function FavoritePokemon() {
 	const navigation = useTabNavigation();
@@ -50,7 +51,7 @@ export default function FavoritePokemon() {
 				weight={data.weight}
 				spriteURL={data.sprites.front_default}
 			/>
-			<Button title="Unfavorite" onPress={handleUnfavoritePressed} />
+			<Button onPress={handleUnfavoritePressed}>Unfavorite</Button>
 		</SafeAreaView>
 	);
 }

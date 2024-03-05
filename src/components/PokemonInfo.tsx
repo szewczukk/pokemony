@@ -1,4 +1,5 @@
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
+import { Text } from 'react-native-paper';
 
 type Props = {
 	weight: number;
