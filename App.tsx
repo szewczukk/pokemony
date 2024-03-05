@@ -8,6 +8,7 @@ import FavoritePokemonScreen from '@/screens/FavoritePokemonScreen';
 import { PaperProvider } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
+import MapScreen from '@/screens/MapScreen';
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,18 @@ export default function App() {
 										<Icon color={color} size={24} name="heart" />
 									) : (
 										<Icon color={color} size={24} name="hearto" />
+									),
+							}}
+						/>
+						<TabNavigator.Screen
+							name="Map"
+							component={MapScreen}
+							options={{
+								tabBarIcon: ({ color, focused }) =>
+									focused ? (
+										<Icon color={color} size={24} name="earth" />
+									) : (
+										<Icon color={color} size={24} name="earth" />
 									),
 							}}
 						/>

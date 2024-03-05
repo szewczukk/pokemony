@@ -14,6 +14,7 @@ export function useRootStackNavigation() {
 export type TabNavigationParamList = {
 	PokemonList: undefined;
 	Favorite: undefined;
+	Map: undefined;
 };
 
 export function useTabNavigation() {
