@@ -50,8 +50,9 @@ export default function FavoritePokemon() {
 				height={data.height}
 				weight={data.weight}
 				spriteURL={data.sprites.front_default}
-			/>
-			<Button onPress={handleUnfavoritePressed}>Unfavorite</Button>
+			>
+				<Button onPress={handleUnfavoritePressed}>Unfavorite</Button>
+			</PokemonInfo>
 		</SafeAreaView>
 	);
 }

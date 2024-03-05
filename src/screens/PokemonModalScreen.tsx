@@ -64,13 +64,14 @@ export default function PokemonModalScreen({ route }: Props) {
 				height={data.height}
 				name={data.name}
 				spriteURL={data.sprites.front_default}
-			/>
-			{isFavorite ? (
-				<Button onPress={handleUnfavorite}>Unfavorite</Button>
-			) : (
-				<Button onPress={handleFavoriteButtonPressed}>Favorite</Button>
-			)}
-			<Button onPress={handleCloseButtonPressed}>Close</Button>
+			>
+				{isFavorite ? (
+					<Button onPress={handleUnfavorite}>Unfavorite</Button>
+				) : (
+					<Button onPress={handleFavoriteButtonPressed}>Favorite</Button>
+				)}
+				<Button onPress={handleCloseButtonPressed}>Close</Button>
+			</PokemonInfo>
 		</View>
 	);
 }

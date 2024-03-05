@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { Text } from 'react-native-paper';
 
@@ -6,6 +7,7 @@ type Props = {
 	height: number;
 	name: string;
 	spriteURL: string;
+	children: ReactNode;
 };
 
 export default function PokemonInfo({
@@ -13,6 +15,7 @@ export default function PokemonInfo({
 	height,
 	name,
 	weight,
+	children,
 }: Props) {
 	return (
 		<View style={styles.container}>
@@ -20,6 +23,7 @@ export default function PokemonInfo({
 			<Text style={styles.name}>{name}</Text>
 			<Text>{height / 10}m</Text>
 			<Text>{weight / 10}kg</Text>
+			{children}
 		</View>
 	);
 }
