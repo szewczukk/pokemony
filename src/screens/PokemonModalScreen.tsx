@@ -33,13 +33,12 @@ export default function PokemonModalScreen({ route }: Props) {
 
 	const handleFavoriteButtonPressed = async () => {
 		await AsyncStorage.setItem('favorite_url', url);
-		navigation.goBack();
+		setIsFavorite(true);
 	};
 
 	const handleUnfavorite = async () => {
 		await AsyncStorage.removeItem('favorite_url');
 		setIsFavorite(false);
-		navigation.goBack();
 	};
 
 	useEffect(() => {

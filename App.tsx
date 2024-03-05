@@ -41,9 +41,7 @@ export default function App() {
 							}}
 						>
 							{() => (
-								<StackListNavigator.Navigator
-									screenOptions={{ headerShown: false }}
-								>
+								<StackListNavigator.Navigator>
 									<StackListNavigator.Screen
 										name="Main"
 										component={PokemonListScreen}
