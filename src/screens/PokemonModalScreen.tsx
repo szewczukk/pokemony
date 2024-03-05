@@ -24,16 +24,14 @@ export default function PokemonModalScreen({ route }: Props) {
 	};
 
 	const handleFavoriteButtonPressed = async () => {
-		AsyncStorage.setItem('favorite_url', url, () => {
-			navigation.goBack();
-		});
+		await AsyncStorage.setItem('favorite_url', url);
+		navigation.goBack();
 	};
 
 	const handleUnfavorite = async () => {
-		AsyncStorage.removeItem('favorite_url', () => {
-			setIsFavorite(false);
-			navigation.goBack();
-		});
+		await AsyncStorage.removeItem('favorite_url');
+		setIsFavorite(false);
+		navigation.goBack();
 	};
 
 	useEffect(() => {

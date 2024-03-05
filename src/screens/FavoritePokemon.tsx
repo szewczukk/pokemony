@@ -14,23 +14,21 @@ export default function FavoritePokemon() {
 		queryFn: () => getPokemon(pokemonUrl || ''),
 	});
 
-	const handleUnfavoritePressed = () => {
-		AsyncStorage.removeItem('favorite_url', () => {
-			setPokemonUrl('');
-			navigation.goBack();
-		});
+	const handleUnfavoritePressed = async () => {
+		await AsyncStorage.removeItem('favorite_url');
+		setPokemonUrl('');
+		navigation.goBack();
 	};
 
 	useEffect(() => {
-		const unsubscribe = navigation.addListener('focus', () => {
-			AsyncStorage.getItem('favorite_url', (err, result) => {
-				if (!result) {
-					setPokemonUrl(undefined);
-					return;
-				}
+		const unsubscribe = navigation.addListener('focus', async () => {
+			const url = await AsyncStorage.getItem('favorite_url');
+			if (!url) {
+				setPokemonUrl(undefined);
+				return;
+			}
 
-				setPokemonUrl(result);
-			});
+			setPokemonUrl(url);
 		});
 
 		return unsubscribe;
