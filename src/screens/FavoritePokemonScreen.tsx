@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-export default function FavoritePokemon() {
+export default function FavoritePokemonScreen() {
 	const navigation = useTabNavigation();
 	const [pokemonUrl, setPokemonUrl] = useState<string | undefined>(undefined);
 	const { data } = useQuery({

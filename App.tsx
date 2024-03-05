@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import PokemonModalScreen from '@/screens/PokemonModalScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackNavigationParamList, TabNavigationParamList } from '@/navigation';
-import FavoritePokemon from '@/screens/FavoritePokemon';
+import FavoritePokemonScreen from '@/screens/FavoritePokemonScreen';
 import { PaperProvider } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -49,7 +49,7 @@ export default function App() {
 						</TabNavigator.Screen>
 						<TabNavigator.Screen
 							name="Favorite"
-							component={FavoritePokemon}
+							component={FavoritePokemonScreen}
 							options={{
 								tabBarIcon: ({ color, focused }) =>
 									focused ? (
