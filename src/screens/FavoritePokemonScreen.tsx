@@ -14,10 +14,11 @@ export default function FavoritePokemonScreen() {
 		queryFn: () => getPokemon(pokemonUrl || ''),
 	});
 
-	const handleHeartPressed = async () => {
-		await AsyncStorage.removeItem('favorite_url');
-		setPokemonUrl('');
-		navigation.goBack();
+	const handleHeartPressed = () => {
+		AsyncStorage.removeItem('favorite_url', () => {
+			setPokemonUrl('');
+			navigation.goBack();
+		});
 	};
 
 	useEffect(() => {
