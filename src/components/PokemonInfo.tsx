@@ -1,23 +1,23 @@
+import { Pokemon } from '@/utils/schema';
 import { ReactNode } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 type Props = {
-	weight: number;
-	height: number;
-	name: string;
-	spriteURL: string;
+	pokemon: Pokemon;
 	onHeartPressed: () => void;
 	isFavorite: boolean;
 	children?: ReactNode;
 };
 
 export default function PokemonInfo({
-	spriteURL,
-	height,
-	name,
-	weight,
+	pokemon: {
+		height,
+		name,
+		sprites: { front_default: spriteURL },
+		weight,
+	},
 	children,
 	isFavorite,
 	onHeartPressed,

@@ -60,10 +60,7 @@ export default function PokemonModalScreen({ route }: Props) {
 			style={[styles.container, { backgroundColor: theme.colors.background }]}
 		>
 			<PokemonInfo
-				weight={data.weight}
-				height={data.height}
-				name={data.name}
-				spriteURL={data.sprites.front_default}
+				pokemon={data}
 				onHeartPressed={
 					isFavorite ? handleUnfavorite : handleFavoriteButtonPressed
 				}

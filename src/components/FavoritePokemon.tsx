@@ -13,10 +13,7 @@ export default function FavoritePokemon({ pokemon, onHeartPressed }: Props) {
 		<SafeAreaView style={styles.container}>
 			{pokemon ? (
 				<PokemonInfo
-					name={pokemon.name}
-					height={pokemon.height}
-					weight={pokemon.weight}
-					spriteURL={pokemon.sprites.front_default}
+					pokemon={pokemon}
 					onHeartPressed={onHeartPressed}
 					isFavorite
 				/>
