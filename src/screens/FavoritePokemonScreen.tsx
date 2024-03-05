@@ -1,11 +1,11 @@
 import { getPokemon } from '@/api/get-pokemon';
-import PokemonInfo from '@/components/PokemonInfo';
+import FavoritePokemon from '@/components/FavoritePokemon';
 import { useTabNavigation } from '@/navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 
 export default function FavoritePokemonScreen() {
 	const navigation = useTabNavigation();
@@ -15,7 +15,7 @@ export default function FavoritePokemonScreen() {
 		queryFn: () => getPokemon(pokemonUrl || ''),
 	});
 
-	const handleUnfavoritePressed = async () => {
+	const handleHeartPressed = async () => {
 		await AsyncStorage.removeItem('favorite_url');
 		setPokemonUrl('');
 		navigation.goBack();
@@ -35,26 +35,7 @@ export default function FavoritePokemonScreen() {
 		return unsubscribe;
 	}, [navigation]);
 
-	if (!data) {
-		return (
-			<SafeAreaView style={styles.container}>
-				<Text>No favorite!</Text>
-			</SafeAreaView>
-		);
-	}
-
-	return (
-		<SafeAreaView style={styles.container}>
-			<PokemonInfo
-				name={data.name}
-				height={data.height}
-				weight={data.weight}
-				spriteURL={data.sprites.front_default}
-				onHeartPressed={handleUnfavoritePressed}
-				isFavorite
-			/>
-		</SafeAreaView>
-	);
+	return <FavoritePokemon pokemon={data} onHeartPressed={handleHeartPressed} />;
 }
 
 const styles = StyleSheet.create({
