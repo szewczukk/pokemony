@@ -10,6 +10,7 @@ import { StatusBar } from 'expo-status-bar';
 import { getPokemons } from '@/api/get-pokemons';
 import PokemonCard from '@/components/PokemonCard';
 import { useRootStackNavigation } from '@/navigation';
+import { API_BASE_URL } from '@/utils/constants';
 
 export default function PokemonListScreen() {
 	const theme = useTheme();
@@ -18,7 +19,7 @@ export default function PokemonListScreen() {
 		queryFn: getPokemons,
 		queryKey: ['pokemons'],
 		getNextPageParam: (lastPage) => lastPage.next,
-		initialPageParam: 'https://pokeapi.co/api/v2/pokemon?limit=20offset=0',
+		initialPageParam: `${API_BASE_URL}/pokemon?limit=20offset=0`,
 	});
 
 	if (isError) {
