@@ -5,22 +5,15 @@ import {
 	SafeAreaView,
 } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
-import { useInfiniteQuery } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
-import { getPokemons } from '@/api/get-pokemons';
 import PokemonCard from '@/components/PokemonCard';
 import { useListStackNavigation } from '@/navigation';
-import { API_BASE_URL } from '@/utils/constants';
+import { useQueryPokemonList } from '@/hooks/useQueryPokemonList';
 
 export default function PokemonListScreen() {
 	const theme = useTheme();
 	const navigation = useListStackNavigation();
-	const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({
-		queryFn: getPokemons,
-		queryKey: ['pokemons'],
-		getNextPageParam: (lastPage) => lastPage.next,
-		initialPageParam: `${API_BASE_URL}/pokemon?limit=20offset=0`,
-	});
+	const { pokemons, isError, isLoading, fetchNextPage } = useQueryPokemonList();
 
 	if (isError) {
 		return <Text>Error..</Text>;
@@ -29,8 +22,6 @@ export default function PokemonListScreen() {
 	if (isLoading) {
 		return <ActivityIndicator />;
 	}
-
-	const pokemons = data?.pages.flatMap((page) => page.results)!;
 
 	return (
 		<SafeAreaView

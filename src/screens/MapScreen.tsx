@@ -27,6 +27,7 @@ export default function MapScreen() {
 				coordinate: e.nativeEvent.coordinate,
 			},
 		]);
+		navigation.navigate('SelectPokemonModal');
 	};
 
 	return (
@@ -41,7 +42,6 @@ export default function MapScreen() {
 					longitudeDelta: 0.01,
 				}}
 				onLongPress={handleMapLongPress}
-				onMarkerPress={() => navigation.navigate('SelectPokemonModal')}
 			>
 				{markers.map((marker) => (
 					<Marker coordinate={marker.coordinate} key={marker.id} />
