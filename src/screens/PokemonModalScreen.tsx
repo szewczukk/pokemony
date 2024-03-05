@@ -2,7 +2,6 @@ import { getPokemon } from '@/api/get-pokemon';
 import PokemonInfo from '@/components/PokemonInfo';
 import { StackNavigationParamList, useRootStackNavigation } from '@/navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
@@ -25,19 +24,15 @@ export default function PokemonModalScreen({ route }: Props) {
 	};
 
 	const handleFavoriteButtonPressed = async () => {
-		AsyncStorage.setItem('favorite', JSON.stringify(data), () => {
-			AsyncStorage.setItem('favorite_url', url, () => {
-				navigation.goBack();
-			});
+		AsyncStorage.setItem('favorite_url', url, () => {
+			navigation.goBack();
 		});
 	};
 
 	const handleUnfavorite = async () => {
-		AsyncStorage.removeItem('favorite', () => {
-			AsyncStorage.removeItem('favorite_url', () => {
-				setIsFavorite(false);
-				navigation.goBack();
-			});
+		AsyncStorage.removeItem('favorite_url', () => {
+			setIsFavorite(false);
+			navigation.goBack();
 		});
 	};
 

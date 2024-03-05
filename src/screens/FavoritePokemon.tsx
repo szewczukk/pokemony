@@ -1,40 +1,42 @@
+import { getPokemon } from '@/api/get-pokemon';
 import PokemonInfo from '@/components/PokemonInfo';
 import { useTabNavigation } from '@/navigation';
-import { Pokemon, pokemonSchema } from '@/utils/schema';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useIsFocused } from '@react-navigation/native';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { Button, SafeAreaView, StyleSheet, Text } from 'react-native';
 
 export default function FavoritePokemon() {
-	const isFocused = useIsFocused();
 	const navigation = useTabNavigation();
-	const [pokemon, setPokemon] = useState<Pokemon | undefined>(undefined);
+	const [pokemonUrl, setPokemonUrl] = useState<string | undefined>(undefined);
+	const { data } = useQuery({
+		queryKey: [pokemonUrl],
+		queryFn: () => getPokemon(pokemonUrl || ''),
+	});
 
 	const handleUnfavoritePressed = () => {
-		AsyncStorage.removeItem('favorite', () => {
-			setPokemon(undefined);
+		AsyncStorage.removeItem('favorite_url', () => {
+			setPokemonUrl('');
 			navigation.goBack();
 		});
 	};
 
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
-			AsyncStorage.getItem('favorite', (err, result) => {
+			AsyncStorage.getItem('favorite_url', (err, result) => {
 				if (!result) {
-					setPokemon(undefined);
+					setPokemonUrl(undefined);
 					return;
 				}
 
-				const parsed = pokemonSchema.parse(JSON.parse(result));
-				setPokemon(parsed);
+				setPokemonUrl(result);
 			});
 		});
 
 		return unsubscribe;
 	}, [navigation]);
 
-	if (!pokemon) {
+	if (!data) {
 		return (
 			<SafeAreaView style={styles.container}>
 				<Text>No favorite!</Text>
@@ -45,10 +47,10 @@ export default function FavoritePokemon() {
 	return (
 		<SafeAreaView style={styles.container}>
 			<PokemonInfo
-				name={pokemon.name}
-				height={pokemon.height}
-				weight={pokemon.weight}
-				spriteURL={pokemon.sprites.front_default}
+				name={data.name}
+				height={data.height}
+				weight={data.weight}
+				spriteURL={data.sprites.front_default}
 			/>
 			<Button title="Unfavorite" onPress={handleUnfavoritePressed} />
 		</SafeAreaView>
