@@ -1,4 +1,4 @@
-import { useMapNavigation } from '@/navigation';
+import { useStackMapNavigation } from '@/navigation';
 import { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import MapView, {
@@ -10,7 +10,7 @@ import MapView, {
 } from 'react-native-maps';
 
 export default function MapScreen() {
-	const navigation = useMapNavigation();
+	const navigation = useStackMapNavigation();
 	const [markers, setMarkers] = useState<{ id: string; coordinate: LatLng }[]>(
 		[],
 	);

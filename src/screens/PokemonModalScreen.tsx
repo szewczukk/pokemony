@@ -1,6 +1,9 @@
 import { getPokemon } from '@/api/get-pokemon';
 import PokemonInfo from '@/components/PokemonInfo';
-import { StackNavigationParamList, useRootStackNavigation } from '@/navigation';
+import {
+	StackListNavigationParamList,
+	useListStackNavigation,
+} from '@/navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useQuery } from '@tanstack/react-query';
@@ -8,14 +11,17 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Button, useTheme } from 'react-native-paper';
 
-type Props = NativeStackScreenProps<StackNavigationParamList, 'PokemonModal'>;
+type Props = NativeStackScreenProps<
+	StackListNavigationParamList,
+	'PokemonModal'
+>;
 
 export default function PokemonModalScreen({ route }: Props) {
 	const { url } = route.params;
 
 	const theme = useTheme();
 	const [isFavorite, setIsFavorite] = useState(false);
-	const navigation = useRootStackNavigation();
+	const navigation = useListStackNavigation();
 	const { isLoading, data } = useQuery({
 		queryKey: [url],
 		queryFn: () => getPokemon(url),

@@ -5,7 +5,7 @@ import PokemonModalScreen from '@/screens/PokemonModalScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
 	StackMapNavigationParamList,
-	StackNavigationParamList,
+	StackListNavigationParamList,
 	TabNavigationParamList,
 } from '@/navigation';
 import FavoritePokemonScreen from '@/screens/FavoritePokemonScreen';
@@ -17,8 +17,10 @@ import SelectPokemonScreen from '@/screens/SelectPokemonScreen';
 
 const queryClient = new QueryClient();
 
-const StackNavigator = createNativeStackNavigator<StackNavigationParamList>();
-const MapNavigator = createNativeStackNavigator<StackMapNavigationParamList>();
+const StackListNavigator =
+	createNativeStackNavigator<StackListNavigationParamList>();
+const StackMapNavigator =
+	createNativeStackNavigator<StackMapNavigationParamList>();
 const TabNavigator = createMaterialBottomTabNavigator<TabNavigationParamList>();
 
 export default function App() {
@@ -39,19 +41,19 @@ export default function App() {
 							}}
 						>
 							{() => (
-								<StackNavigator.Navigator
+								<StackListNavigator.Navigator
 									screenOptions={{ headerShown: false }}
 								>
-									<StackNavigator.Screen
+									<StackListNavigator.Screen
 										name="Main"
 										component={PokemonListScreen}
 									/>
-									<StackNavigator.Screen
+									<StackListNavigator.Screen
 										name="PokemonModal"
 										component={PokemonModalScreen}
 										options={{ presentation: 'modal' }}
 									/>
-								</StackNavigator.Navigator>
+								</StackListNavigator.Navigator>
 							)}
 						</TabNavigator.Screen>
 						<TabNavigator.Screen
@@ -78,14 +80,14 @@ export default function App() {
 							}}
 						>
 							{() => (
-								<MapNavigator.Navigator>
-									<MapNavigator.Screen name="Map" component={MapScreen} />
-									<MapNavigator.Screen
+								<StackMapNavigator.Navigator>
+									<StackMapNavigator.Screen name="Map" component={MapScreen} />
+									<StackMapNavigator.Screen
 										name="SelectPokemonModal"
 										component={SelectPokemonScreen}
 										options={{ presentation: 'modal' }}
 									/>
-								</MapNavigator.Navigator>
+								</StackMapNavigator.Navigator>
 							)}
 						</TabNavigator.Screen>
 					</TabNavigator.Navigator>

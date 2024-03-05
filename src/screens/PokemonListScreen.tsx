@@ -9,12 +9,12 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
 import { getPokemons } from '@/api/get-pokemons';
 import PokemonCard from '@/components/PokemonCard';
-import { useRootStackNavigation } from '@/navigation';
+import { useListStackNavigation } from '@/navigation';
 import { API_BASE_URL } from '@/utils/constants';
 
 export default function PokemonListScreen() {
 	const theme = useTheme();
-	const navigation = useRootStackNavigation();
+	const navigation = useListStackNavigation();
 	const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({
 		queryFn: getPokemons,
 		queryKey: ['pokemons'],
