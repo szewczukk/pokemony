@@ -1,13 +1,16 @@
 import { ReactNode } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-import { Text } from 'react-native-paper';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Text, useTheme } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 type Props = {
 	weight: number;
 	height: number;
 	name: string;
 	spriteURL: string;
-	children: ReactNode;
+	onHeartPressed: () => void;
+	isFavorite: boolean;
+	children?: ReactNode;
 };
 
 export default function PokemonInfo({
@@ -16,11 +19,24 @@ export default function PokemonInfo({
 	name,
 	weight,
 	children,
+	isFavorite,
+	onHeartPressed,
 }: Props) {
+	const theme = useTheme();
+
 	return (
 		<View style={styles.container}>
 			<Image source={{ uri: spriteURL }} width={128} height={128} />
-			<Text style={styles.name}>{name}</Text>
+			<View style={styles.favoriteBarContainer}>
+				<Text style={styles.name}>{name}</Text>
+				<TouchableOpacity onPress={onHeartPressed}>
+					{isFavorite ? (
+						<Icon size={24} color={theme.colors.primary} name="heart" />
+					) : (
+						<Icon size={24} color={theme.colors.primary} name="hearto" />
+					)}
+				</TouchableOpacity>
+			</View>
 			<Text>{height / 10}m</Text>
 			<Text>{weight / 10}kg</Text>
 			{children}
@@ -33,9 +49,15 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		alignItems: 'center',
 		padding: 8,
+		gap: 4,
 	},
 	name: {
 		fontWeight: 'bold',
 		fontSize: 24,
+	},
+	favoriteBarContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		gap: 16,
 	},
 });
