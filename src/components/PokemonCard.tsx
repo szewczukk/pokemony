@@ -25,7 +25,7 @@ export default function PokemonCard({ name, url, onPress }: Props) {
 	if (query.isLoading) {
 		return (
 			<View style={styles.container}>
-				<ActivityIndicator />
+				<ActivityIndicator testID="indicator" />
 			</View>
 		);
 	}
