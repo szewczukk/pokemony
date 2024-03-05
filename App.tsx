@@ -38,6 +38,7 @@ export default function App() {
 									) : (
 										<Icon color={color} size={24} name="infocirlceo" />
 									),
+								title: 'Pokemon list',
 							}}
 						>
 							{() => (
@@ -45,6 +46,7 @@ export default function App() {
 									<StackListNavigator.Screen
 										name="Main"
 										component={PokemonListScreen}
+										options={{ title: 'Pokemon list' }}
 									/>
 									<StackListNavigator.Screen
 										name="PokemonModal"
@@ -79,7 +81,11 @@ export default function App() {
 						>
 							{() => (
 								<StackMapNavigator.Navigator>
-									<StackMapNavigator.Screen name="Main" component={MapScreen} />
+									<StackMapNavigator.Screen
+										name="Main"
+										component={MapScreen}
+										options={{ title: 'Map' }}
+									/>
 									<StackMapNavigator.Screen
 										name="SelectPokemonModal"
 										component={SelectPokemonScreen}
