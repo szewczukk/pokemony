@@ -20,3 +20,12 @@ export type TabNavigationParamList = {
 export function useTabNavigation() {
 	return useNavigation<BottomTabNavigationProp<TabNavigationParamList>>();
 }
+
+export type StackMapNavigationParamList = {
+	Map: undefined;
+	SelectPokemonModal: undefined;
+};
+
+export function useMapNavigation() {
+	return useNavigation<StackNavigationProp<StackMapNavigationParamList>>();
+}

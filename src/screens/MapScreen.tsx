@@ -1,3 +1,4 @@
+import { useMapNavigation } from '@/navigation';
 import { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import MapView, {
@@ -9,6 +10,7 @@ import MapView, {
 } from 'react-native-maps';
 
 export default function MapScreen() {
+	const navigation = useMapNavigation();
 	const [markers, setMarkers] = useState<{ id: string; coordinate: LatLng }[]>(
 		[],
 	);
@@ -39,14 +41,10 @@ export default function MapScreen() {
 					longitudeDelta: 0.01,
 				}}
 				onLongPress={handleMapLongPress}
+				onMarkerPress={() => navigation.navigate('SelectPokemonModal')}
 			>
 				{markers.map((marker) => (
-					<Marker
-						coordinate={marker.coordinate}
-						title="Hello"
-						description="aa"
-						key={marker.id}
-					/>
+					<Marker coordinate={marker.coordinate} key={marker.id} />
 				))}
 			</MapView>
 		</SafeAreaView>
