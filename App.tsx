@@ -5,25 +5,32 @@ import PokemonModalScreen from '@/screens/PokemonModalScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackNavigationParamList, TabNavigationParamList } from '@/navigation';
 import FavoritePokemon from '@/screens/FavoritePokemon';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { PaperProvider } from 'react-native-paper';
+import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const queryClient = new QueryClient();
 
 const StackNavigator = createNativeStackNavigator<StackNavigationParamList>();
-const TabNavigator = createBottomTabNavigator<TabNavigationParamList>();
+const TabNavigator = createMaterialBottomTabNavigator<TabNavigationParamList>();
 
 export default function App() {
 	return (
 		<PaperProvider>
 			<NavigationContainer>
 				<QueryClientProvider client={queryClient}>
-					<TabNavigator.Navigator
-						screenOptions={{
-							headerShown: false,
-						}}
-					>
-						<TabNavigator.Screen name="PokemonList">
+					<TabNavigator.Navigator>
+						<TabNavigator.Screen
+							name="PokemonList"
+							options={{
+								tabBarIcon: ({ color, focused }) =>
+									focused ? (
+										<Icon color={color} size={24} name="infocirlce" />
+									) : (
+										<Icon color={color} size={24} name="infocirlceo" />
+									),
+							}}
+						>
 							{() => (
 								<StackNavigator.Navigator
 									screenOptions={{ headerShown: false }}
@@ -40,7 +47,18 @@ export default function App() {
 								</StackNavigator.Navigator>
 							)}
 						</TabNavigator.Screen>
-						<TabNavigator.Screen name="Favorite" component={FavoritePokemon} />
+						<TabNavigator.Screen
+							name="Favorite"
+							component={FavoritePokemon}
+							options={{
+								tabBarIcon: ({ color, focused }) =>
+									focused ? (
+										<Icon color={color} size={24} name="heart" />
+									) : (
+										<Icon color={color} size={24} name="hearto" />
+									),
+							}}
+						/>
 					</TabNavigator.Navigator>
 				</QueryClientProvider>
 			</NavigationContainer>
