@@ -4,13 +4,14 @@ import {
 	StyleSheet,
 	SafeAreaView,
 } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
 import { getPokemons } from '@/api/get-pokemons';
 import PokemonCard from '@/components/PokemonCard';
 
 export default function PokemonListScreen() {
+	const theme = useTheme();
 	const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({
 		queryFn: getPokemons,
 		queryKey: ['pokemons'],
@@ -29,7 +30,9 @@ export default function PokemonListScreen() {
 	const pokemons = data?.pages.flatMap((page) => page.results)!;
 
 	return (
-		<SafeAreaView style={styles.container}>
+		<SafeAreaView
+			style={[styles.container, { backgroundColor: theme.colors.background }]}
+		>
 			<StatusBar style="auto" />
 			<FlatList
 				data={pokemons}

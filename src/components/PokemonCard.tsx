@@ -5,7 +5,7 @@ import {
 	View,
 	TouchableHighlight,
 } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import { useQuery } from '@tanstack/react-query';
 import { getPokemon } from '@/api/get-pokemon';
 import { useRootStackNavigation } from '@/navigation';
@@ -16,6 +16,7 @@ type Props = {
 };
 
 export default function PokemonCard({ name, url }: Props) {
+	const theme = useTheme();
 	const navigation = useRootStackNavigation();
 	const query = useQuery({
 		queryKey: [url],
@@ -34,7 +35,9 @@ export default function PokemonCard({ name, url }: Props) {
 		<TouchableHighlight
 			onPress={() => navigation.navigate('PokemonModal', { url })}
 		>
-			<View style={styles.container}>
+			<View
+				style={[styles.container, { backgroundColor: theme.colors.background }]}
+			>
 				<View style={styles.innerContainer}>
 					<Image
 						source={{ uri: query.data?.sprites.front_default }}
@@ -51,7 +54,6 @@ export default function PokemonCard({ name, url }: Props) {
 const styles = StyleSheet.create({
 	container: {
 		padding: 16,
-		backgroundColor: '#f0f0f0',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',

@@ -6,13 +6,14 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Button } from 'react-native-paper';
+import { ActivityIndicator, Button, useTheme } from 'react-native-paper';
 
 type Props = NativeStackScreenProps<StackNavigationParamList, 'PokemonModal'>;
 
 export default function PokemonModalScreen({ route }: Props) {
 	const { url } = route.params;
 
+	const theme = useTheme();
 	const [isFavorite, setIsFavorite] = useState(false);
 	const navigation = useRootStackNavigation();
 	const { isLoading, data } = useQuery({
@@ -55,7 +56,9 @@ export default function PokemonModalScreen({ route }: Props) {
 	}
 
 	return (
-		<View style={styles.container}>
+		<View
+			style={[styles.container, { backgroundColor: theme.colors.background }]}
+		>
 			<PokemonInfo
 				weight={data?.weight}
 				height={data.height}
@@ -75,7 +78,8 @@ export default function PokemonModalScreen({ route }: Props) {
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'column',
-		alignItems: 'center',
+		alignItems: 'stretch',
+		height: '100%',
 		padding: 8,
 	},
 });
