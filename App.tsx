@@ -79,7 +79,7 @@ export default function App() {
 						>
 							{() => (
 								<StackMapNavigator.Navigator>
-									<StackMapNavigator.Screen name="Map" component={MapScreen} />
+									<StackMapNavigator.Screen name="Main" component={MapScreen} />
 									<StackMapNavigator.Screen
 										name="SelectPokemonModal"
 										component={SelectPokemonScreen}

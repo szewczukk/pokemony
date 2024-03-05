@@ -1,32 +1,20 @@
 import { useStackMapNavigation } from '@/navigation';
-import { useState } from 'react';
+import { usePokemonMarkerStore } from '@/stores/pokemon-marker';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import MapView, {
-	LatLng,
 	LongPressEvent,
 	Marker,
 	PROVIDER_DEFAULT,
-	Point,
 } from 'react-native-maps';
 
 export default function MapScreen() {
 	const navigation = useStackMapNavigation();
-	const [markers, setMarkers] = useState<{ id: string; coordinate: LatLng }[]>(
-		[],
-	);
+	const { setCoordinates, markers } = usePokemonMarkerStore();
 
 	const handleMapLongPress = (e: LongPressEvent) => {
 		e.persist();
 
-		setMarkers((prev) => [
-			...prev,
-			{
-				id: (
-					e.nativeEvent.coordinate.latitude + e.nativeEvent.coordinate.longitude
-				).toString(),
-				coordinate: e.nativeEvent.coordinate,
-			},
-		]);
+		setCoordinates(e.nativeEvent.coordinate);
 		navigation.navigate('SelectPokemonModal');
 	};
 

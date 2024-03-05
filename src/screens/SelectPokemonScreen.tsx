@@ -1,11 +1,21 @@
 import PokemonCard from '@/components/PokemonCard';
 import { useQueryPokemonList } from '@/hooks/useQueryPokemonList';
+import { useStackMapNavigation } from '@/navigation';
+import { usePokemonMarkerStore } from '@/stores/pokemon-marker';
 import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
 import { useTheme } from 'react-native-paper';
 
 export default function SelectPokemonScreen() {
 	const theme = useTheme();
+	const navigation = useStackMapNavigation();
 	const { pokemons, fetchNextPage } = useQueryPokemonList();
+	const { appendMarker, clearTemp } = usePokemonMarkerStore();
+
+	const handlePress = (url: string) => {
+		appendMarker(url);
+		clearTemp();
+		navigation.goBack();
+	};
 
 	return (
 		<SafeAreaView
@@ -18,7 +28,7 @@ export default function SelectPokemonScreen() {
 					<PokemonCard
 						name={item.name}
 						url={item.url}
-						onPress={() => console.log('hello')}
+						onPress={() => handlePress(item.url)}
 					/>
 				)}
 				onEndReached={() => fetchNextPage()}

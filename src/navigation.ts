@@ -22,7 +22,7 @@ export function useTabNavigation() {
 }
 
 export type StackMapNavigationParamList = {
-	Map: undefined;
+	Main: undefined;
 	SelectPokemonModal: undefined;
 };
 
