@@ -8,16 +8,15 @@ import {
 import { Text, useTheme } from 'react-native-paper';
 import { useQuery } from '@tanstack/react-query';
 import { getPokemon } from '@/api/get-pokemon';
-import { useRootStackNavigation } from '@/navigation';
 
 type Props = {
 	name: string;
 	url: string;
+	onPress: () => void;
 };
 
-export default function PokemonCard({ name, url }: Props) {
+export default function PokemonCard({ name, url, onPress }: Props) {
 	const theme = useTheme();
-	const navigation = useRootStackNavigation();
 	const query = useQuery({
 		queryKey: [url],
 		queryFn: () => getPokemon(url),
@@ -32,9 +31,7 @@ export default function PokemonCard({ name, url }: Props) {
 	}
 
 	return (
-		<TouchableHighlight
-			onPress={() => navigation.navigate('PokemonModal', { url })}
-		>
+		<TouchableHighlight onPress={onPress}>
 			<View
 				style={[styles.container, { backgroundColor: theme.colors.background }]}
 			>

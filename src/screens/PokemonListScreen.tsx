@@ -9,9 +9,11 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
 import { getPokemons } from '@/api/get-pokemons';
 import PokemonCard from '@/components/PokemonCard';
+import { useRootStackNavigation } from '@/navigation';
 
 export default function PokemonListScreen() {
 	const theme = useTheme();
+	const navigation = useRootStackNavigation();
 	const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({
 		queryFn: getPokemons,
 		queryKey: ['pokemons'],
@@ -38,7 +40,13 @@ export default function PokemonListScreen() {
 				data={pokemons}
 				keyExtractor={(item) => item.url}
 				renderItem={({ item }) => (
-					<PokemonCard name={item.name} url={item.url} />
+					<PokemonCard
+						name={item.name}
+						url={item.url}
+						onPress={() =>
+							navigation.navigate('PokemonModal', { url: item.url })
+						}
+					/>
 				)}
 				onEndReached={() => fetchNextPage()}
 			/>

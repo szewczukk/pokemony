@@ -4,8 +4,7 @@ import { useTabNavigation } from '@/navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import { Text } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
 export default function FavoritePokemonScreen() {
 	const navigation = useTabNavigation();
