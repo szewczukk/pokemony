@@ -85,6 +85,11 @@ export default function App() {
 										component={SelectPokemonScreen}
 										options={{ presentation: 'modal' }}
 									/>
+									<StackListNavigator.Screen
+										name="PokemonModal"
+										component={PokemonModalScreen}
+										options={{ presentation: 'modal' }}
+									/>
 								</StackMapNavigator.Navigator>
 							)}
 						</TabNavigator.Screen>

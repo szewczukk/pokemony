@@ -4,6 +4,7 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import MapView, {
 	LongPressEvent,
 	Marker,
+	MarkerPressEvent,
 	PROVIDER_DEFAULT,
 } from 'react-native-maps';
 
@@ -18,6 +19,18 @@ export default function MapScreen() {
 		navigation.navigate('SelectPokemonModal');
 	};
 
+	const handleMarkerPressed = (e: MarkerPressEvent) => {
+		e.persist();
+
+		const selectedUrl = markers.find(
+			(marker) =>
+				marker.coordinate.latitude === e.nativeEvent.coordinate.latitude &&
+				marker.coordinate.longitude === e.nativeEvent.coordinate.longitude,
+		)!.pokemonUrl;
+
+		navigation.navigate('PokemonModal', { url: selectedUrl });
+	};
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<MapView
@@ -30,6 +43,7 @@ export default function MapScreen() {
 					longitudeDelta: 0.01,
 				}}
 				onLongPress={handleMapLongPress}
+				onMarkerPress={handleMarkerPressed}
 			>
 				{markers.map((marker) => (
 					<Marker coordinate={marker.coordinate} key={marker.id} />
