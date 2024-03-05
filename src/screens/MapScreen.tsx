@@ -39,8 +39,8 @@ export default function MapScreen() {
 				region={{
 					latitude: 50.06143,
 					longitude: 19.93658,
-					latitudeDelta: 0.01,
-					longitudeDelta: 0.01,
+					latitudeDelta: 0.02,
+					longitudeDelta: 0.02,
 				}}
 				onLongPress={handleMapLongPress}
 				onMarkerPress={handleMarkerPressed}
