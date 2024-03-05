@@ -1,7 +1,32 @@
+import { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import MapView, { PROVIDER_DEFAULT } from 'react-native-maps';
+import MapView, {
+	LatLng,
+	LongPressEvent,
+	Marker,
+	PROVIDER_DEFAULT,
+	Point,
+} from 'react-native-maps';
 
 export default function MapScreen() {
+	const [markers, setMarkers] = useState<{ id: string; coordinate: LatLng }[]>(
+		[],
+	);
+
+	const handleMapLongPress = (e: LongPressEvent) => {
+		e.persist();
+
+		setMarkers((prev) => [
+			...prev,
+			{
+				id: (
+					e.nativeEvent.coordinate.latitude + e.nativeEvent.coordinate.longitude
+				).toString(),
+				coordinate: e.nativeEvent.coordinate,
+			},
+		]);
+	};
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<MapView
@@ -13,7 +38,17 @@ export default function MapScreen() {
 					latitudeDelta: 0.01,
 					longitudeDelta: 0.01,
 				}}
-			></MapView>
+				onLongPress={handleMapLongPress}
+			>
+				{markers.map((marker) => (
+					<Marker
+						coordinate={marker.coordinate}
+						title="Hello"
+						description="aa"
+						key={marker.id}
+					/>
+				))}
+			</MapView>
 		</SafeAreaView>
 	);
 }
